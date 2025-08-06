@@ -22,8 +22,12 @@ module ActiveResource
       clear unless save_cache
 
       messages.each do |key, errors|
-        errors.each do |error|
-          add(key, error)
+        if errors.blank?
+          add(key.presence || :base, "Shopify indicated an error, but didn't provide any details")
+        else
+          errors.each do |error|
+            add(key, error)
+          end
         end
       end
     end

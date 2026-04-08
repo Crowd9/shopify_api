@@ -4,7 +4,11 @@ require 'minitest/autorun'
 require 'webmock/minitest'
 require_relative 'lib/webmock_extensions/last_request'
 require 'mocha/minitest'
-require 'pry'
+begin
+  require 'pry'
+rescue LoadError, NameError
+  # Older pry releases are not compatible with newer Rubies used for local verification.
+end
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
